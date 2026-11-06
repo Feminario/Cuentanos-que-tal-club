@@ -182,7 +182,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible, .cc-btn:focus
   .card { padding: 36px 36px 30px; }
 }
 @media (min-width: 960px) {
-  .photo { aspect-ratio: 2.4 / 1; max-height: 64vh; border-radius: 0 0 56px 56px; }
+  .photo { aspect-ratio: auto; width: 100%; height: min(41.6vw, 64vh); border-radius: 0 0 56px 56px; }
   .panel { margin-top: -28px; padding-bottom: 64px; }
   .card { max-width: 640px; padding: 40px 44px 34px; }
   .deco-star { width: 90px; right: 28px; bottom: 80px; }
