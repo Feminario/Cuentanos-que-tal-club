@@ -124,8 +124,6 @@
     const f = form.elements;
     const cohorte = form.querySelector("input[name=cohorte]:checked").value;
     const calUrl = cfg.CALENDARIOS[cohorte]; // cohorte 1 y 2 tienen calendarios distintos
-    // Debe abrirse dentro del clic para que el navegador no bloquee la ventana.
-    const win = window.open(calUrl, "_blank");
 
     const nombre = f.nombre.value.trim();
     const payload = {
@@ -164,6 +162,8 @@
     $("#doneView").hidden = false;
     $("#card").scrollIntoView({ behavior: "smooth", block: "start" });
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches) confetti();
+    // Tras el confeti la llevamos al calendario en esta misma pestaña (el botón queda por si prefiere ir antes).
+    setTimeout(() => { location.href = calUrl; }, 4500);
   });
 
   form.addEventListener("input", (e) => e.target.closest(".field")?.classList.remove("invalid"));
