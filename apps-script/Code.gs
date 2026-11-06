@@ -2,7 +2,7 @@
 // una pestaña por cohorte ("Cohorte 1" y "Cohorte 2"). La foto se guarda en Drive.
 // Escribe por NOMBRE de columna; si falta una, la crea.
 
-const SHEET_ID = "1Y8jvrHuzSrg1DgDYPWFFI5n7afSJlDHWFWRsZv7NBlY";
+const SHEET_ID = "1fKDj7Z3nGKxd27qi64WlL6R47ozEB9VdG15jmFx7yo8";
 const CARPETA_FOTOS = "Fotos asesoría Club 365";
 const HEADERS = ["Fecha", "Cohorte", "Nombre", "Email", "Whatsapp", "Foto",
   "Cómo vas con tus finanzas", "Mayor dolor con la plata", "Dudas para la asesoría",
