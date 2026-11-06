@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cuéntanos qué tal · Club 365 · Feminario</title>
+<meta name="description" content="Cuéntanos cómo estás con tus finanzas y agenda tu asesoría del Club 365.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body>
+<main class="page">
+
+  <header class="photo" aria-hidden="true">
+    <img src="assets/foto.jpg" alt="">
+    <svg class="deco deco-star" viewBox="0 0 100 100"><use href="#s-star8"/></svg>
+    <svg class="deco deco-pin" viewBox="0 0 100 100"><use href="#s-pinwheel"/></svg>
+  </header>
+
+  <section class="panel">
+    <div class="card" id="card">
+      <img class="brand" src="assets/logo.png" alt="Feminario" width="150" height="45">
+
+      <div id="formView">
+        <h1>Cuéntanos qué tal</h1>
+        <p class="lead">Responde esto antes de tu asesoría del Club 365 para que lleguemos preparadas a tu espacio. Toma 3 minutos.</p>
+
+        <form id="form" novalidate>
+          <div class="row">
+            <label class="field">
+              <span>Nombre</span>
+              <input name="nombre" type="text" autocomplete="given-name" required>
+            </label>
+            <label class="field">
+              <span>Apellido</span>
+              <input name="apellido" type="text" autocomplete="family-name" required>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Correo con el que compraste el Club</span>
+            <input name="email" type="email" autocomplete="email" inputmode="email" required>
+          </label>
+
+          <div class="field">
+            <span id="telLabel">Celular (WhatsApp)</span>
+            <div class="tel">
+              <div class="cc" id="cc">
+                <button type="button" class="cc-btn" id="ccBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Código de país">
+                  <img id="ccFlag" alt="" width="22" height="16">
+                  <b id="ccCode">+57</b>
+                  <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </button>
+                <ul class="cc-list" id="ccList" role="listbox" hidden></ul>
+              </div>
+              <input name="telefono" type="tel" autocomplete="tel-national" inputmode="tel" aria-labelledby="telLabel" required>
+            </div>
+          </div>
+
+          <div class="field" data-group="foto">
+            <span id="fotoLabel">Sube una foto tuya <small>(así te ponemos cara antes de la asesoría)</small></span>
+            <label class="foto-drop" for="foto">
+              <img id="fotoPrev" alt="" hidden>
+              <span id="fotoTxt">Elegir foto</span>
+            </label>
+            <input id="foto" name="foto" type="file" accept="image/*" class="sr" aria-labelledby="fotoLabel">
+          </div>
+
+          <fieldset class="field" data-group="cohorte">
+            <legend>¿En qué cohorte del Club estás?</legend>
+            <div class="chips chips-2">
+              <label><input type="radio" name="cohorte" value="1"><span>Cohorte 1</span></label>
+              <label><input type="radio" name="cohorte" value="2"><span>Cohorte 2</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field" data-group="momento">
+            <legend>¿Cómo vas hoy con tus finanzas?</legend>
+            <div class="chips">
+              <label><input type="radio" name="momento" value="Vivo al día y me angustia"><span>Vivo al día y me angustia</span></label>
+              <label><input type="radio" name="momento" value="Cubro lo básico pero no ahorro"><span>Cubro lo básico pero no ahorro</span></label>
+              <label><input type="radio" name="momento" value="Ahorro pero no sé qué hacer con eso"><span>Ahorro, pero no sé qué hacer con eso</span></label>
+              <label><input type="radio" name="momento" value="Voy bien y quiero optimizar"><span>Voy bien y quiero optimizar</span></label>
+            </div>
+          </fieldset>
+
+          <div class="field" data-group="dolor">
+            <span id="dolorLabel">¿Cuál es tu mayor dolor con la plata ahora mismo? <small>(elige todos los que quieras)</small></span>
+            <div class="ms" id="ms">
+              <button type="button" class="ms-btn" id="msBtn" aria-haspopup="true" aria-expanded="false" aria-labelledby="dolorLabel msText">
+                <span id="msText" class="ph">Elige una o varias opciones</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="ms-list" id="msList" hidden>
+                <label><input type="checkbox" name="dolor" value="Deudas"><span>Deudas</span></label>
+                <label><input type="checkbox" name="dolor" value="Ingresos inestables"><span>Ingresos inestables</span></label>
+                <label><input type="checkbox" name="dolor" value="No logro ahorrar"><span>No logro ahorrar</span></label>
+                <label><input type="checkbox" name="dolor" value="No sé invertir"><span>No sé invertir</span></label>
+                <label><input type="checkbox" name="dolor" value="No sé cuánto gano o gasto"><span>No sé cuánto gano o gasto</span></label>
+                <label><input type="checkbox" name="dolor" value="Plata en pareja o familia"><span>Plata en pareja o familia</span></label>
+                <label><input type="checkbox" name="dolor" value="Otro"><span>Otro</span></label>
+              </div>
+            </div>
+          </div>
+
+          <label class="field">
+            <span>¿Qué dudas quieres resolver en la asesoría? <small>(mientras más concreta, mejor)</small></span>
+            <textarea name="dudas" rows="4" required></textarea>
+          </label>
+
+          <label class="field">
+            <span>¿Qué te gustaría lograr con tu plata en 2027? <small>(con esto armamos tu plan)</small></span>
+            <textarea name="meta2027" rows="4" required></textarea>
+          </label>
+
+          <label class="field">
+            <span>¿Qué te gustaría ver en Feminario que hoy no existe? <small>(opcional)</small></span>
+            <textarea name="ideas" rows="3"></textarea>
+          </label>
+
+          <div class="field" data-group="ok">
+            <label class="check">
+              <input type="checkbox" name="ok">
+              <span>Autorizo que Feminario use estas respuestas para preparar mi asesoría.</span>
+            </label>
+          </div>
+
+          <p class="error" id="formError" role="alert" hidden></p>
+          <button class="btn btn-primary" id="submitBtn" type="submit">Agendar mi asesoría</button>
+          <p class="fine">Se abrirá el calendario para que elijas tu horario.</p>
+        </form>
+      </div>
+
+      <div id="doneView" hidden>
+        <svg class="done-star" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star8"/></svg>
+        <h1>¡Listo, <span id="doneName"></span>!</h1>
+        <p class="lead">Recibimos tus respuestas. Elige tu horario en el calendario y nos vemos en la asesoría.</p>
+        <a class="btn btn-wa" id="calBtn" href="#" target="_blank" rel="noopener">Elegir mi horario</a>
+        <a class="link" id="waLink" href="https://wa.me/573148260099?text=Hola%2C%20tengo%20una%20duda%20sobre%20mi%20asesor%C3%ADa%20del%20Club%20365" target="_blank" rel="noopener">¿Dudas? Escríbele a Emi</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="s-star8" viewBox="0 0 100 100"><path fill="currentColor" d="M50 2l8 33 32-12-20 27 30 9-31 7 15 29-28-17-6 33-6-33-28 17 15-29-31-7 30-9L10 23l32 12z"/></symbol>
+    <symbol id="s-pinwheel" viewBox="0 0 100 100"><g fill="currentColor" transform="translate(50 50)"><path d="M4 -4V-46A42 42 0 0 1 46 -4Z"/><path d="M4 -4V-46A42 42 0 0 1 46 -4Z" transform="rotate(90)"/><path d="M4 -4V-46A42 42 0 0 1 46 -4Z" transform="rotate(180)"/><path d="M4 -4V-46A42 42 0 0 1 46 -4Z" transform="rotate(270)"/></g></symbol>
+  </defs>
+</svg>
+
+<script src="config.js?v=1"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>
