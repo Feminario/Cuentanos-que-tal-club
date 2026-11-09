@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi avance · Club 365 · Feminario</title>
+<meta name="description" content="Sube tu extracto o resumen de finanzas para ver tu avance en el Club 365.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=5">
+</head>
+<body>
+<main class="page">
+
+  <header class="photo" aria-hidden="true">
+    <img src="assets/foto.jpg" alt="">
+    <svg class="deco deco-star" viewBox="0 0 100 100"><use href="#s-star8"/></svg>
+  </header>
+
+  <section class="panel">
+    <div class="card" id="card">
+      <img class="brand" src="assets/logo.png" alt="Feminario" width="150" height="45">
+
+      <div id="formView">
+        <h1>Mi avance</h1>
+        <p class="lead">Sube tu extracto o resumen de finanzas del mes para que veamos juntas cómo vas. Puedes volver a subirlo cada mes. Toma 1 minuto.</p>
+
+        <form id="form" novalidate>
+          <label class="field">
+            <span>Nombre y apellido</span>
+            <input name="nombre" type="text" autocomplete="name" required>
+          </label>
+
+          <label class="field">
+            <span>Correo con el que compraste el Club</span>
+            <input name="email" type="email" autocomplete="email" inputmode="email" required>
+          </label>
+
+          <fieldset class="field" data-group="cohorte">
+            <legend>¿En qué cohorte del Club estás?</legend>
+            <div class="chips chips-2">
+              <label><input type="radio" name="cohorte" value="1"><span>Cohorte 1</span></label>
+              <label><input type="radio" name="cohorte" value="2"><span>Cohorte 2</span></label>
+            </div>
+          </fieldset>
+
+          <div class="field" data-group="archivo">
+            <span id="archivoLabel">Tu extracto o resumen de finanzas <small>(PDF, Excel, CSV o foto · máx. 5 MB)</small></span>
+            <label class="foto-drop" for="archivo"><span id="archivoTxt">Elegir archivo</span></label>
+            <input id="archivo" name="archivo" type="file" accept=".pdf,.xls,.xlsx,.csv,image/*" class="sr" aria-labelledby="archivoLabel">
+            <p class="hint">Solo lo ve el equipo de Feminario. Si quieres, tapa tus números de cuenta.</p>
+            <p class="error" id="archivoError" role="alert" hidden></p>
+          </div>
+
+          <label class="field">
+            <span>¿Cómo te fue este mes con tu plata? <small>(opcional)</small></span>
+            <textarea name="nota" rows="4"></textarea>
+          </label>
+
+          <div class="field" data-group="ok">
+            <label class="check">
+              <input type="checkbox" name="ok">
+              <span>Autorizo que Feminario guarde este archivo de forma privada para ver mi avance.</span>
+            </label>
+          </div>
+
+          <p class="error" id="formError" role="alert" hidden></p>
+          <button class="btn btn-primary" id="submitBtn" type="submit">Enviar mi avance</button>
+        </form>
+      </div>
+
+      <div id="doneView" hidden>
+        <svg class="done-star" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star8"/></svg>
+        <h1>¡Gracias, <span id="doneName"></span>!</h1>
+        <p class="lead">Recibimos tu avance. Si algo no te llega o quieres confirmar, escríbele a Emi.</p>
+        <a class="link" href="https://wa.me/573148260099?text=Hola%2C%20sub%C3%AD%20mi%20avance%20del%20Club%20365" target="_blank" rel="noopener">Escribirle a Emi</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="s-star8" viewBox="0 0 100 100"><path fill="currentColor" d="M50 2l8 33 32-12-20 27 30 9-31 7 15 29-28-17-6 33-6-33-28 17 15-29-31-7 30-9L10 23l32 12z"/></symbol>
+  </defs>
+</svg>
+
+<script src="config.js?v=2"></script>
+<script src="archivo.js?v=1"></script>
+<script src="avance.js?v=1"></script>
+</body>
+</html>

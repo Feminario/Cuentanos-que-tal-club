@@ -86,6 +86,24 @@
     img.src = url;
   });
 
+  // ---------- Extracto / resumen de finanzas (opcional) ----------
+  let extracto = null;
+  const extIn = $("#extracto"), extErr = $("#extractoError");
+  extIn.addEventListener("change", async () => {
+    extracto = null; extErr.hidden = true;
+    $("#extractoTxt").textContent = "Elegir archivo";
+    form.querySelector("[data-group=okExtracto]").hidden = true;
+    const file = extIn.files[0];
+    if (!file) return;
+    try {
+      extracto = await window.FeminarioArchivo.leer(file);
+      $("#extractoTxt").textContent = "✓ " + file.name;
+      form.querySelector("[data-group=okExtracto]").hidden = false;
+    } catch (err) {
+      extIn.value = ""; extErr.textContent = err.message; extErr.hidden = false;
+    }
+  });
+
   // Cohorte desde la URL (?cohorte=1 o 2)
   const pre = new URLSearchParams(location.search).get("cohorte");
   if (pre === "1" || pre === "2") form.querySelector(`input[name=cohorte][value="${pre}"]`).checked = true;
@@ -106,6 +124,7 @@
     grp("momento", !form.querySelector("input[name=momento]:checked"), form.querySelector("input[name=momento]"), bad);
     grp("dolor", !form.querySelector("input[name=dolor]:checked"), $("#msBtn"), bad);
     grp("ok", !f.ok.checked, f.ok, bad);
+    grp("okExtracto", !!extracto && !f.okExtracto.checked, f.okExtracto, bad);
     return bad;
   }
 
@@ -140,6 +159,11 @@
       "Autorizó uso de datos": "Sí",
       "_foto": fotoData,
     };
+    if (extracto) {
+      payload["Autorizó guardar extracto"] = "Sí";
+      payload["_extracto"] = extracto.dataUrl;
+      payload["_extractoNombre"] = extracto.nombre;
+    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = "Enviando…";

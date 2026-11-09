@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
 <main class="page">
@@ -122,6 +122,23 @@
             <textarea name="ideas" rows="3"></textarea>
           </label>
 
+          <div class="field" data-group="extracto">
+            <span id="extractoLabel">Sube tu extracto o resumen de finanzas <small>(opcional · PDF, Excel, CSV o foto · máx. 5 MB)</small></span>
+            <label class="foto-drop" for="extracto">
+              <span id="extractoTxt">Elegir archivo</span>
+            </label>
+            <input id="extracto" name="extracto" type="file" accept=".pdf,.xls,.xlsx,.csv,image/*" class="sr" aria-labelledby="extractoLabel">
+            <p class="hint">Sirve para que tu asesora vea cómo vas y para medir tu avance. Solo lo ve el equipo de Feminario. Si quieres, tapa tus números de cuenta.</p>
+            <p class="error" id="extractoError" role="alert" hidden></p>
+          </div>
+
+          <div class="field" data-group="okExtracto" hidden>
+            <label class="check">
+              <input type="checkbox" name="okExtracto">
+              <span>Autorizo que Feminario guarde este archivo de forma privada para ver mi avance.</span>
+            </label>
+          </div>
+
           <div class="field" data-group="ok">
             <label class="check">
               <input type="checkbox" name="ok">
@@ -156,6 +173,7 @@
 </svg>
 
 <script src="config.js?v=2"></script>
-<script src="app.js?v=3"></script>
+<script src="archivo.js?v=1"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
