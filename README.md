@@ -1,6 +1,6 @@
 # Cuéntanos qué tal · Formulario de asesorías Club 365
 
-Formulario estático (HTML/CSS/JS). Guarda las respuestas en la hoja de asesorías (pestañas **Cohorte 1** y **Cohorte 2**), sube la foto a Drive y abre el calendario según la cohorte:
+Formulario estático (HTML/CSS/JS). Guarda las respuestas en la hoja de asesorías (pestañas **Cohorte 1** y **Cohorte 2**), sube la foto y el extracto bancario (opcional) a Drive y abre el calendario según la cohorte:
 
 - Cohorte 1 → https://calendar.app.google/EHn4KiBDv5vFA4M16
 - Cohorte 2 → https://calendar.app.google/n7cx1ne7WXzwPjNYA

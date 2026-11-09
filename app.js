@@ -86,6 +86,28 @@
     img.src = url;
   });
 
+  // ---------- Extracto bancario (opcional): PDF o imagen, máx. 8 MB; se envía en base64 ----------
+  let extractoData = "", extractoNombre = "";
+  const extractoIn = $("#extracto");
+  extractoIn.addEventListener("change", () => {
+    const file = extractoIn.files[0];
+    const grpEl = form.querySelector("[data-group=extracto]");
+    extractoData = ""; extractoNombre = "";
+    grpEl.classList.remove("invalid");
+    $("#extractoTxt").textContent = "Elegir extracto";
+    if (!file) return;
+    if (file.size > 8 * 1024 * 1024) {
+      extractoIn.value = "";
+      grpEl.classList.add("invalid");
+      $("#extractoTxt").textContent = "Pesa más de 8 MB: elige otro archivo";
+      return;
+    }
+    const rd = new FileReader();
+    rd.onload = () => { extractoData = String(rd.result); extractoNombre = file.name; $("#extractoTxt").textContent = "✓ " + file.name + " (cambiar)"; };
+    rd.onerror = () => { extractoIn.value = ""; grpEl.classList.add("invalid"); };
+    rd.readAsDataURL(file);
+  });
+
   // Cohorte desde la URL (?cohorte=1 o 2)
   const pre = new URLSearchParams(location.search).get("cohorte");
   if (pre === "1" || pre === "2") form.querySelector(`input[name=cohorte][value="${pre}"]`).checked = true;
@@ -139,6 +161,8 @@
       "Qué te gustaría ver en Feminario": f.ideas.value.trim(),
       "Autorizó uso de datos": "Sí",
       "_foto": fotoData,
+      "_extracto": extractoData,
+      "_extracto_nombre": extractoNombre,
     };
 
     submitBtn.disabled = true;

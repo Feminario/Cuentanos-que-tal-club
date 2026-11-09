@@ -4,9 +4,10 @@
 
 const SHEET_ID = "1fKDj7Z3nGKxd27qi64WlL6R47ozEB9VdG15jmFx7yo8";
 const CARPETA_FOTOS = "Fotos asesoría Club 365";
+const CARPETA_EXTRACTOS = "Extractos asesoría Club 365";
 const HEADERS = ["Fecha", "Cohorte", "Nombre", "Email", "Whatsapp", "Foto",
   "Cómo vas con tus finanzas", "Mayor dolor con la plata", "Dudas para la asesoría",
-  "Meta 2027", "Qué te gustaría ver en Feminario", "Autorizó uso de datos"];
+  "Meta 2027", "Qué te gustaría ver en Feminario", "Autorizó uso de datos", "Extracto"];
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -24,6 +25,7 @@ function doPost(e) {
     HEADERS.forEach((h) => { if (headers.indexOf(h) < 0) { headers.push(h); sh.getRange(1, headers.length).setValue(h); } });
 
     d["Foto"] = guardarFoto(d["_foto"], d["Nombre"], d["Email"]);
+    d["Extracto"] = guardarExtracto(d["_extracto"], d["_extracto_nombre"], d["Nombre"], d["Email"]);
     const fila = headers.map((h) => {
       const v = d[h] !== undefined ? d[h] : "";
       return h === "Whatsapp" ? "'" + v : v;
@@ -44,6 +46,18 @@ function guardarFoto(dataUrl, nombre, email) {
   const f = carpeta.createFile(blob);
   f.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
   return "https://drive.google.com/thumbnail?id=" + f.getId() + "&sz=w400";
+}
+
+// Guarda el extracto (PDF o imagen) en una carpeta privada de Drive; la hoja queda con el enlace (solo lo abre quien tenga acceso a la carpeta).
+function guardarExtracto(dataUrl, archivo, nombre, email) {
+  if (!dataUrl) return "";
+  const m = /^data:([^;]+);base64,(.*)$/.exec(String(dataUrl));
+  if (!m) return "";
+  const it = DriveApp.getFoldersByName(CARPETA_EXTRACTOS);
+  const carpeta = it.hasNext() ? it.next() : DriveApp.createFolder(CARPETA_EXTRACTOS);
+  const ext = m[1] === "application/pdf" ? ".pdf" : m[1] === "image/png" ? ".png" : ".jpg";
+  const blob = Utilities.newBlob(Utilities.base64Decode(m[2]), m[1], "Extracto - " + (nombre || "sin nombre") + " - " + email + ext);
+  return carpeta.createFile(blob).getUrl();
 }
 
 function doGet() { return out({ ok: true, service: "feminario-asesorias" }); }
