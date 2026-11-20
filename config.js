@@ -3,6 +3,6 @@ window.FEMINARIO_CONFIG = {
   SHEET_ENDPOINT: "https://script.google.com/macros/s/AKfycby1oTyDWCTvErRJ1z8siQdlvM-HEmQm81U2r_C_0dLB-76cHAuqTAzYAq0RguBmqjx5Og/exec",
   CALENDARIOS: {
     "1": "https://calendar.app.google/EHn4KiBDv5vFA4M16",
-    "2": "https://calendar.app.google/n7cx1ne7WXzwPjNYA"
+    "2": "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1alXxu7GQbNf8qBjV_iB59sgGAwMetBTlIL85ltwedmJXNSejly1kEKYP4Iz5kkrXhzBANUJX4"
   }
 };
