@@ -94,7 +94,7 @@
     const grpEl = form.querySelector("[data-group=extracto]");
     extractoData = ""; extractoNombre = "";
     grpEl.classList.remove("invalid");
-    $("#extractoTxt").textContent = "Elegir extracto";
+    $("#extractoTxt").textContent = "Elegir documento";
     if (!file) return;
     if (file.size > 8 * 1024 * 1024) {
       extractoIn.value = "";
