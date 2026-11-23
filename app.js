@@ -82,7 +82,7 @@
       form.querySelector("[data-group=foto]").classList.remove("invalid");
       URL.revokeObjectURL(url);
     };
-    img.onerror = () => { fotoIn.value = ""; };
+    img.onerror = () => { fotoIn.value = ""; $("#fotoTxt").textContent = "No pudimos abrir esa foto: elige otra o una captura de pantalla"; };
     img.src = url;
   });
 
@@ -131,6 +131,47 @@
     return bad;
   }
 
+  // ---------- Guardado confirmado (22 nov 2026) ----------
+  // Antes el envío iba «a ciegas» (no-cors) y siempre decía ¡Listo!, aunque la hoja no hubiera guardado nada.
+  // Ahora se lee la respuesta: solo cuenta si la hoja contesta { ok: true }. Se reintenta y, si falla, el último intento va sin el documento (lo más pesado).
+  let enviando = false;
+  const espera = (ms) => new Promise((r) => setTimeout(r, ms));
+  async function intento(payload) {
+    const corte = new AbortController();
+    const reloj = setTimeout(() => corte.abort(), 90000);
+    try {
+      const r = await fetch(cfg.SHEET_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, // text/plain evita el preflight CORS que Apps Script no soporta
+        body: JSON.stringify(payload), signal: corte.signal,
+      });
+      const d = await r.json();
+      return !!(r.ok && d && d.ok === true);
+    } catch (err) { console.error(err); return false; } finally { clearTimeout(reloj); }
+  }
+  async function guardar(payload) {
+    if (!cfg.SHEET_ENDPOINT) return { ok: false };
+    if (await intento(payload)) return { ok: true };
+    await espera(2000);
+    if (await intento(payload)) return { ok: true };
+    if (payload._extracto) {
+      await espera(2000);
+      if (await intento({ ...payload, _extracto: "", _extracto_nombre: "" })) return { ok: true, sinDocumento: true };
+    }
+    return { ok: false };
+  }
+  window.addEventListener("beforeunload", (e) => { if (enviando) { e.preventDefault(); e.returnValue = ""; } });
+
+  // Borrador en su navegador: si se cierra la página o falla el internet, lo escrito no se pierde (sin foto ni documento).
+  const CLAVE = "cuentanos-borrador";
+  const TEXTOS = ["nombre", "apellido", "email", "telefono", "dudas", "meta2027", "ideas"];
+  function borrarBorrador() { try { localStorage.removeItem(CLAVE); } catch { /* sin almacenamiento */ } }
+  form.addEventListener("input", () => { try { localStorage.setItem(CLAVE, JSON.stringify(Object.fromEntries(TEXTOS.map((n) => [n, form.elements[n].value])))); } catch { /* sin almacenamiento */ } });
+  try {
+    const b = JSON.parse(localStorage.getItem(CLAVE) || "null");
+    if (b) TEXTOS.forEach((n) => { if (b[n] && !form.elements[n].value) form.elements[n].value = b[n]; });
+  } catch { /* borrador dañado: se ignora */ }
+
   // ---------- Envío ----------
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -166,19 +207,24 @@
     };
 
     submitBtn.disabled = true;
-    submitBtn.textContent = "Enviando…";
-    try {
-      if (!cfg.SHEET_ENDPOINT) {
-        console.warn("SHEET_ENDPOINT vacío: no se guardó en la hoja.", payload);
-      } else {
-        // text/plain evita el preflight CORS que Apps Script no soporta.
-        await fetch(cfg.SHEET_ENDPOINT, {
-          method: "POST", mode: "no-cors",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(payload),
-        });
-      }
-    } catch (err) { console.error(err); }
+    submitBtn.textContent = "Guardando tus respuestas…";
+    enviando = true;
+    const res = await guardar(payload);
+    enviando = false;
+    if (!res.ok) {
+      // NO se guardó: no decimos «listo» ni la llevamos al calendario. Lo que escribió sigue en la pantalla y en su navegador.
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Intentar de nuevo";
+      errorEl.textContent = "No pudimos guardar tus respuestas. Revisa tu internet y toca «Intentar de nuevo»: no tienes que volver a escribir nada. Si sigue fallando, escríbele a Emi por WhatsApp al +57 314 826 0099.";
+      errorEl.hidden = false;
+      errorEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    borrarBorrador();
+    if (res.sinDocumento) {
+      const p = $("#doneView .lead");
+      p.textContent = "Ya tenemos tus respuestas, ¡nos vemos en tu asesoría! Tu documento no se pudo subir: tenlo a la mano ese día. Ahora te llevamos al calendario para que elijas tu horario.";
+    }
 
     $("#doneName").textContent = nombre;
     $("#calBtn").href = calUrl;
