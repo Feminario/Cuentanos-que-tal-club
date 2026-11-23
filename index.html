@@ -139,16 +139,23 @@
 
           <p class="error" id="formError" role="alert" hidden></p>
           <button class="btn btn-primary" id="submitBtn" type="submit">Agendar mi asesoría</button>
-          <p class="fine">Después te llevamos al calendario para que elijas tu horario.</p>
+          <p class="fine">Después eliges tu horario en el calendario.</p>
         </form>
       </div>
 
       <div id="doneView" hidden>
         <svg class="done-star" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star8"/></svg>
         <h1>¡Listo, <span id="doneName"></span>!</h1>
-        <p class="lead">Ya tenemos tus respuestas, ¡nos vemos en tu asesoría! Ahora te llevamos al calendario para que elijas tu horario.</p>
-        <a class="btn btn-wa" id="calBtn" href="#" rel="noopener">Elegir mi horario ahora</a>
+        <p class="lead">Ya tenemos tus respuestas. Ahora elige tu horario en el calendario y, cuando termines, vuelve aquí y toca «Ya agendé».</p>
+        <a class="btn btn-wa" id="calBtn" href="#" target="_blank" rel="noopener">Elegir mi horario</a>
+        <button class="btn btn-primary" id="yaAgende" type="button">Ya agendé ✓</button>
         <a class="link" id="waLink" href="https://wa.me/573148260099?text=Hola%2C%20tengo%20una%20duda%20sobre%20mi%20asesor%C3%ADa%20del%20Club%20365" target="_blank" rel="noopener">¿Dudas? Escríbele a Emi</a>
+      </div>
+      <div id="thanksView" hidden>
+        <svg class="done-star" viewBox="0 0 100 100" aria-hidden="true"><use href="#s-star8"/></svg>
+        <h1>¡Gracias por agendar, <span id="thanksName"></span>!</h1>
+        <p class="lead">Tu asesoría quedó en tu calendario. Te llegará una invitación con el enlace para conectarte. ¡Nos vemos pronto!</p>
+        <a class="link" href="https://wa.me/573148260099?text=Hola%2C%20tengo%20una%20duda%20sobre%20mi%20asesor%C3%ADa%20del%20Club%20365" target="_blank" rel="noopener">¿Dudas? Escríbele a Emi</a>
       </div>
     </div>
   </section>
@@ -163,7 +170,7 @@
   </defs>
 </svg>
 
-<script src="config.js?v=4"></script>
-<script src="app.js?v=4"></script>
+<script src="config.js?v=5"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>

@@ -223,7 +223,7 @@
     borrarBorrador();
     if (res.sinDocumento) {
       const p = $("#doneView .lead");
-      p.textContent = "Ya tenemos tus respuestas, ¡nos vemos en tu asesoría! Tu documento no se pudo subir: tenlo a la mano ese día. Ahora te llevamos al calendario para que elijas tu horario.";
+      p.textContent = "Ya tenemos tus respuestas, ¡nos vemos en tu asesoría! Tu documento no se pudo subir: tenlo a la mano ese día. Ahora elige tu horario en el calendario y, cuando termines, vuelve aquí y toca «Ya agendé».";
     }
 
     $("#doneName").textContent = nombre;
@@ -232,8 +232,14 @@
     $("#doneView").hidden = false;
     $("#card").scrollIntoView({ behavior: "smooth", block: "start" });
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches) confetti();
-    // Tras el confeti la llevamos al calendario en esta misma pestaña (el botón queda por si prefiere ir antes).
-    setTimeout(() => { location.href = calUrl; }, 4500);
+    // Ya no se la lleva sola al calendario: elige su horario con el botón (pestaña nueva) y al volver toca «Ya agendé» para ver el agradecimiento.
+    $("#yaAgende").onclick = () => {
+      $("#thanksName").textContent = nombre;
+      $("#doneView").hidden = true;
+      $("#thanksView").hidden = false;
+      $("#card").scrollIntoView({ behavior: "smooth", block: "start" });
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) confetti();
+    };
   });
 
   form.addEventListener("input", (e) => e.target.closest(".field")?.classList.remove("invalid"));
