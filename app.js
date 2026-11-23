@@ -233,14 +233,19 @@
     $("#card").scrollIntoView({ behavior: "smooth", block: "start" });
     if (!matchMedia("(prefers-reduced-motion: reduce)").matches) confetti();
     // Ya no se la lleva sola al calendario: elige su horario con el botón (pestaña nueva) y al volver toca «Ya agendé» para ver el agradecimiento.
-    $("#yaAgende").onclick = () => {
-      $("#thanksName").textContent = nombre;
-      $("#doneView").hidden = true;
-      $("#thanksView").hidden = false;
-      $("#card").scrollIntoView({ behavior: "smooth", block: "start" });
-      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) confetti();
-    };
   });
+
+  // «Ya agendé»: está debajo de «Agendar mi asesoría» y también en la pantalla de después de enviar; lleva a «Gracias por agendar».
+  function gracias() {
+    const n = form.nombre.value.trim(); $("#thanksName").textContent = n ? ", " + n : "";
+    $("#formView").hidden = true;
+    $("#doneView").hidden = true;
+    $("#thanksView").hidden = false;
+    $("#card").scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) confetti();
+  }
+  $("#yaAgende").onclick = gracias;
+  $("#yaAgende2").onclick = gracias;
 
   form.addEventListener("input", (e) => e.target.closest(".field")?.classList.remove("invalid"));
 
